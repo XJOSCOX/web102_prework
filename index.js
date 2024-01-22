@@ -27,25 +27,28 @@ const gamesContainer = document.getElementById("games-container");
 
 // create a function that adds all data from the games array to the page
 function addGamesToPage(games) {
+    for (let i = 0; i < games.length; i++) {
+        let game = games[i];
 
-    // loop over each item in the data
+        // Create a new div element for the game card
+        let gameCard = document.createElement('div');
+        gameCard.classList.add('game-card');
 
+        // Set the inner HTML using a template literal
+        gameCard.innerHTML = `
+            <img src="${game.img}" class="game-img" alt="${game.name}">
+            <h3>${game.name}</h3>
+            <p>${game.description}</p>
+            <!-- Add more game attributes here if needed -->
+        `;
 
-        // create a new div element, which will become the game card
-
-
-        // add the class game-card to the list
-
-
-        // set the inner HTML using a template literal to display some info 
-        // about each game
-        // TIP: if your images are not displaying, make sure there is space
-        // between the end of the src attribute and the end of the tag ("/>")
-
-
-        // append the game to the games-container
-
+        // Append the gameCard to the DOM
+        document.getElementById('games-container').appendChild(gameCard);
+    }
 }
+
+addGamesToPage(GAMES_JSON);
+
 
 // call the function we just defined using the correct variable
 // later, we'll call this function using a different list of games
@@ -61,6 +64,12 @@ function addGamesToPage(games) {
 const contributionsCard = document.getElementById("num-contributions");
 
 // use reduce() to count the number of total contributions by summing the backers
+
+let totalContributions = GAMES_JSON.reduce((total, game) => {
+    return total + game.backers;
+}, 0);
+
+document.getElementById('contributionsCard').textContent = `Total Contributions: ${totalContributions}`;
 
 
 // set the inner HTML using a template literal and toLocaleString to get a number with commas
